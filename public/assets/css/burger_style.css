@@ -1,0 +1,26 @@
+body {
+    background: #ffdb4d;
+    color: #000000;
+}
+
+h1 {
+    color: #cc0000;
+    text-align: center;
+}
+
+.submit {
+ background-color: #0047b3;
+ color: #ffffff;
+}
+
+.results {
+    width: 70%;
+}
+
+.namedBurgers {
+    float: left;
+}
+
+.devouredBurgers {
+    float: right;
+}
