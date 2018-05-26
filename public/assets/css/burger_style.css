@@ -15,6 +15,7 @@ h1 {
 
 .results {
     width: 70%;
+    height: 300px;
 }
 
 .namedBurgers {
@@ -23,4 +24,8 @@ h1 {
 
 .devouredBurgers {
     float: right;
+}
+
+li {
+    list-style-type: none;
 }

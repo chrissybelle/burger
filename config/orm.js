@@ -2,6 +2,15 @@ var connection = require("./connection.js"); // "../config/connection.js"
 
 // In the orm.js file, create the methods that will execute the necessary MySQL commands in the controllers. These are the methods you will need to use in order to retrieve and store data in your database.
 
+function printQuestionMarks(num) {
+    var arr = [];
+    for (var i = 0; i < num; i++) {
+      arr.push("?");
+    }
+    return arr.toString();
+  }
+
+
 //convert object key/value pairs to SQL syntax
 function objToSql(ob) {
     var arr = [];
@@ -32,27 +41,30 @@ var orm = {
                 throw err;
             }
             cb(result);
+            console.log("printed all");
         });
     },
-// insertOne()
+// insertOne() to create new burger in db
     insertOne: function(table, column, values, cb) {
         var queryString = "INSERT INTO " + table;
         queryString += " (";
         queryString += column.toString();
         queryString += ") ";
         queryString += "VALUES (";
-        queryString += "?";
+        queryString += printQuestionMarks(values.length);
         queryString += ") ";
         console.log(queryString);
+        console.log(values);
 
         connection.query(queryString, values, function(err, result) {
             if (err) {
                 throw err;
             }
             cb(result);
+            console.log("inserted");
         });
     },
-// updateOne()
+// updateOne() to change devoured status to true
     updateOne: function(table, colObj, condition, cb) {
         var queryString = "UPDATE " + table;
         queryString += " SET ";
@@ -60,13 +72,21 @@ var orm = {
         queryString += " WHERE ";
         queryString += condition;
         console.log(queryString);
-
+        console.log(colObj);
+  
         connection.query(queryString, function(err, result) {
             if(err) {
                 throw err;
             }
             cb(result);
+            connection.query("SELECT * FROM burgers", function(err, result) {
+                if(err) {
+                    throw err;
+                }
+                console.log(result);
+            });
         });
+
     }
 
 };
